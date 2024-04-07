@@ -1,0 +1,11 @@
+@Contatos_HostAddress = http://localhost:5280
+
+GET {{Contatos_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+
+GET {{Contatos_HostAddress}}/contato/
+Accept: application/json
+
+###
