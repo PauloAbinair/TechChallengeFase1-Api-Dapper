@@ -3,3 +3,48 @@ GET {{Contatos_HostAddress}}/contato/
 Accept: application/json
 
 ###
+
+GET {{Contatos_HostAddress}}/contato/0
+Accept: application/json
+
+###
+
+POST {{Contatos_HostAddress}}/contato
+Accept: application/json
+Content-Type: application/json
+
+{
+  "nome": "Teste 1",
+  "telefone": "431434",
+  "email": "sdfasdfasdf"
+}
+
+###
+
+PUT {{Contatos_HostAddress}}/contato/2
+Accept: application/json
+Content-Type: application/json
+
+{
+  "nome": "Teste 1",
+  "telefone": "431434",
+  "email": "sdfasdfasdf"
+}
+
+###
+
+PUT {{Contatos_HostAddress}}/contato/2
+Accept: application/json
+Content-Type: application/json
+
+{
+  "nome": "Teste 1",
+  "telefone": "431434",
+  "email": "sdfasdfasdf"
+}
+
+###
+
+DELETE {{Contatos_HostAddress}}/contato/2
+
+###
