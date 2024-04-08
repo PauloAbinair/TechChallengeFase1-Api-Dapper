@@ -21,7 +21,7 @@ namespace Contatos.Controllers
         public IActionResult Get(int id)
         {
             var contato = _dbConnection.Get<Contato>(id);
-            return contato is not null? Ok(contato) : NotFound();
+            return contato is not null ? Ok(contato) : NotFound();
         }
 
         [HttpPost]
@@ -36,7 +36,7 @@ namespace Contatos.Controllers
         {
             contato.Id = id;
             var atualizado = _dbConnection.Update(contato);
-            return atualizado? NoContent() : NotFound();
+            return atualizado ? NoContent() : NotFound();
         }
 
         [HttpDelete("{id}")]

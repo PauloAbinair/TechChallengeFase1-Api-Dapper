@@ -11,7 +11,7 @@ namespace Contatos.API.Tests.Controllers
     public class ContatoControllerTests
     {
         private Mock<IDbConnectionFactory> _mockDbConnectionFactory;
-        private ContatoController _contatoController;
+        private ContatosController _contatoController;
 
         [SetUp]
         public void Setup()
@@ -19,9 +19,9 @@ namespace Contatos.API.Tests.Controllers
             {
                 _mockDbConnectionFactory = new Mock<IDbConnectionFactory>();
                 var mockDbConnection = new Mock<IDbConnection>();
-                mockDbConnection.Setup(x => x.GetAll<Contato>(null, null)).Returns(new List<Contato>());
+                mockDbConnection.Setup(x => x.GetAll<Contato>(null, null)).Returns([]);
                 _mockDbConnectionFactory.Setup(x => x.CreateConnection()).Returns(mockDbConnection.Object);
-                _contatoController = new ContatoController(_mockDbConnectionFactory.Object.CreateConnection());
+                _contatoController = new ContatosController(_mockDbConnectionFactory.Object.CreateConnection());
             }
         }
 
@@ -41,7 +41,7 @@ namespace Contatos.API.Tests.Controllers
             var result = _contatoController.Get();
 
             // Assert
-            Assert.IsInstanceOf<OkObjectResult>(result);
+            Assert.That(result, Is.InstanceOf<OkObjectResult>());
             var okResult = (OkObjectResult)result;
             Assert.That(okResult.Value, Is.EqualTo(contatos));
         }
@@ -51,14 +51,9 @@ namespace Contatos.API.Tests.Controllers
             IDbConnection CreateConnection();
         }
 
-        public class DbConnectionFactory : IDbConnectionFactory
+        public class DbConnectionFactory(string connectionString) : IDbConnectionFactory
         {
-            private readonly string _connectionString;
-
-            public DbConnectionFactory(string connectionString)
-            {
-                _connectionString = connectionString;
-            }
+            private readonly string _connectionString = connectionString;
 
             public IDbConnection CreateConnection()
             {
