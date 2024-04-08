@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Contatos.API\Contatos.API.csproj" />
     <ProjectReference Include="..\Contatos\Contatos.API.csproj" />
   </ItemGroup>
 
