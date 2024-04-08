@@ -4,7 +4,7 @@ namespace Contatos.API.Interfaces
 {
     public interface IContatoRepository
     {
-        IEnumerable<Contato> RetornarListarContatos();
+        IEnumerable<Contato> RetornarListaDeContatos();
 
         Contato? RetornarContatoPeloId(int id);
 

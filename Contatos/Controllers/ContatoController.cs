@@ -1,7 +1,5 @@
-﻿using System.Data;
-using Contatos.API.Interfaces;
+﻿using Contatos.API.Interfaces;
 using Contatos.API.Models;
-using Dapper.Contrib.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Contatos.Controllers
@@ -15,7 +13,7 @@ namespace Contatos.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var contatos = _contatoRepository.RetornarListarContatos();
+            var contatos = _contatoRepository.RetornarListaDeContatos();
             return Ok(contatos);
         }
 

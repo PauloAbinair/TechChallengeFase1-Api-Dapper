@@ -27,7 +27,7 @@ namespace Contatos.API.Repositories
             return contato;
         }
 
-        public IEnumerable<Contato> RetornarListarContatos()
+        public IEnumerable<Contato> RetornarListaDeContatos()
         {
             var contatos = _dbConnection.GetAll<Contato>().ToList();
             return [.. contatos];
