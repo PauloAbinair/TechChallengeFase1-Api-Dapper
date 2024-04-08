@@ -6,7 +6,7 @@ namespace Contatos.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ContatoController(IDbConnection dbConnection) : ControllerBase
+    public class ContatosController(IDbConnection dbConnection) : ControllerBase
     {
         private readonly IDbConnection _dbConnection = dbConnection;
 
