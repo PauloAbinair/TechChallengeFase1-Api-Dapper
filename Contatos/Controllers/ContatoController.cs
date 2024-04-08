@@ -1,4 +1,6 @@
 ﻿using System.Data;
+using Contatos.API.Interfaces;
+using Contatos.API.Models;
 using Dapper.Contrib.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,48 +8,43 @@ namespace Contatos.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ContatosController(IDbConnection dbConnection) : ControllerBase
+    public class ContatosController(IContatoRepository contatoRepository) : ControllerBase
     {
-        private readonly IDbConnection _dbConnection = dbConnection;
+        private readonly IContatoRepository _contatoRepository = contatoRepository;
 
         [HttpGet]
         public IActionResult Get()
         {
-            var contatos = _dbConnection.GetAll<Contato>().ToList();
+            var contatos = _contatoRepository.RetornarListarContatos();
             return Ok(contatos);
         }
 
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var contato = _dbConnection.Get<Contato>(id);
+            var contato = _contatoRepository.RetornarContatoPeloId(id);
             return contato is not null ? Ok(contato) : NotFound();
         }
 
         [HttpPost]
         public IActionResult Post([FromBody] Contato contato)
         {
-            contato.Id = (int)_dbConnection.Insert<Contato>(contato);
-            return Created(string.Empty, contato);
+            var novoContato = _contatoRepository.InserirNovoContato(contato);
+            return Created(string.Empty, novoContato);
         }
 
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] Contato contato)
         {
             contato.Id = id;
-            var atualizado = _dbConnection.Update(contato);
+            var atualizado = _contatoRepository.AlterarContato(contato);
             return atualizado ? NoContent() : NotFound();
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var contato = _dbConnection.Get<Contato>(id);
-
-            if (contato is null || contato.Id.Equals(0))
-                return NotFound();
-
-            _dbConnection.Delete(contato);
+            _contatoRepository.ExcluirContao(id);
             return NoContent();
         }
     }

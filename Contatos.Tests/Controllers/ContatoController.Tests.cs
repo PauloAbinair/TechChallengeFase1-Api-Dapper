@@ -1,3 +1,4 @@
+using Contatos.API.Models;
 using Contatos.Controllers;
 using Dapper.Contrib.Extensions;
 using Microsoft.AspNetCore.Mvc;
