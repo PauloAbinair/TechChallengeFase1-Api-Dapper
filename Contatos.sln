@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34723.18
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contatos", "Contatos\Contatos.csproj", "{4AD7C6E3-C047-4604-A5DB-129D7E5FFD4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contatos.API", "Contatos\Contatos.API.csproj", "{4AD7C6E3-C047-4604-A5DB-129D7E5FFD4E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contatos.API.Tests", "Contatos.Tests\Contatos.API.Tests.csproj", "{D061F68F-8260-421E-B595-3A2813E95FB8}"
 EndProject

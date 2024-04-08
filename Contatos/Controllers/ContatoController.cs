@@ -6,40 +6,49 @@ namespace Contatos.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ContatoController : ControllerBase
+    public class ContatoController(IDbConnection dbConnection) : ControllerBase
     {
-        private readonly IDbConnection _dbConnection;
-
-        public ContatoController(IDbConnection dbConnection)
-        {
-            _dbConnection = dbConnection;
-        }
+        private readonly IDbConnection _dbConnection = dbConnection;
 
         [HttpGet]
-        public IEnumerable<Contato> Get()
+        public IActionResult Get()
         {
-            return _dbConnection.GetAll<Contato>().ToList();
+            var contatos = _dbConnection.GetAll<Contato>().ToList();
+            return Ok(contatos);
         }
 
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            return "value";
+            var contato = _dbConnection.Get<Contato>(id);
+            return contato is not null? Ok(contato) : NotFound();
         }
 
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post([FromBody] Contato contato)
         {
+            contato.Id = (int)_dbConnection.Insert<Contato>(contato);
+            return Created(string.Empty, contato);
         }
 
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Put(int id, [FromBody] Contato contato)
         {
+            contato.Id = id;
+            var atualizado = _dbConnection.Update(contato);
+            return atualizado? NoContent() : NotFound();
         }
 
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            var contato = _dbConnection.Get<Contato>(id);
+
+            if (contato is null || contato.Id.Equals(0))
+                return NotFound();
+
+            _dbConnection.Delete(contato);
+            return NoContent();
         }
     }
 }
