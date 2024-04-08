@@ -6,14 +6,9 @@ namespace Contatos.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ContatoController : ControllerBase
+    public class ContatoController(IDbConnection dbConnection) : ControllerBase
     {
-        private readonly IDbConnection _dbConnection;
-
-        public ContatoController(IDbConnection dbConnection)
-        {
-            _dbConnection = dbConnection;
-        }
+        private readonly IDbConnection _dbConnection = dbConnection;
 
         [HttpGet]
         public IActionResult Get()

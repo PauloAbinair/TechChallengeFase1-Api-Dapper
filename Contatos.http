@@ -14,9 +14,10 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "nome": "Teste 1",
-  "telefone": "431434",
-  "email": "sdfasdfasdf"
+  "nome": "Paulo Abinair Prado Silva",
+  "ddd": "31",
+  "telefone": "993583291",
+  "email": "paulo.abinair@email.com.br"
 }
 
 ###
