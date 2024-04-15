@@ -2,7 +2,7 @@
 
 namespace Contatos.API.Interfaces
 {
-    public interface IContatoRepository
+    public interface IContatoService
     {
         Task<IEnumerable<Contato>> RetornarListaDeContatos();
 

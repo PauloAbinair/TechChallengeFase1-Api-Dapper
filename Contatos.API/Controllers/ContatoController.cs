@@ -6,43 +6,43 @@ namespace Contatos.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ContatosController(IContatoRepository contatoRepository) : ControllerBase
+    public class ContatosController(IContatoService contatoService) : ControllerBase
     {
-        private readonly IContatoRepository _contatoRepository = contatoRepository;
+        private readonly IContatoService _contatoService = contatoService;
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            var contatos = _contatoRepository.RetornarListaDeContatos();
+            var contatos = await _contatoService.RetornarListaDeContatos();
             return Ok(contatos);
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
-            var contato = _contatoRepository.RetornarContatoPeloId(id);
+            var contato = await _contatoService.RetornarContatoPeloId(id);
             return contato is not null ? Ok(contato) : NotFound();
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] Contato contato)
+        public async Task<IActionResult> Post([FromBody] Contato contato)
         {
-            var novoContato = _contatoRepository.InserirNovoContato(contato);
+            var novoContato = await _contatoService.InserirNovoContato(contato);
             return Created(string.Empty, novoContato);
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] Contato contato)
+        public async Task<IActionResult> Put(int id, [FromBody] Contato contato)
         {
             contato.Id = id;
-            var atualizado = _contatoRepository.AlterarContato(contato);
+            var atualizado = await _contatoService.AlterarContato(contato);
             return atualizado ? NoContent() : NotFound();
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            _contatoRepository.ExcluirContao(id);
+            await _contatoService.ExcluirContao(id);
             return NoContent();
         }
     }

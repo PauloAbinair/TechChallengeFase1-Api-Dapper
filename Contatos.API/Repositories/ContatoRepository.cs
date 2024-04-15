@@ -10,32 +10,32 @@ namespace Contatos.API.Repositories
     {
         private readonly IDbConnection _dbConnection = dbConnection;
 
-        public bool AlterarContato(Contato contato)
+        public async Task<bool> AlterarContato(Contato contato)
         {
-            return _dbConnection.Update(contato);
+            return await _dbConnection.UpdateAsync(contato);
         }
 
-        public bool ExcluirContao(int id)
+        public async Task<bool> ExcluirContao(int id)
         {
             var contato = _dbConnection.Get<Contato>(id);
-            return _dbConnection.Delete(contato);
+            return await _dbConnection.DeleteAsync(contato);
         }
 
-        public Contato InserirNovoContato(Contato contato)
+        public async Task<Contato> InserirNovoContato(Contato contato)
         {
-            contato.Id = (int)_dbConnection.Insert(contato);
+            contato.Id = await _dbConnection.InsertAsync(contato);
             return contato;
         }
 
-        public IEnumerable<Contato> RetornarListaDeContatos()
+        public async Task<IEnumerable<Contato>> RetornarListaDeContatos()
         {
-            var contatos = _dbConnection.GetAll<Contato>().ToList();
+            var contatos = await _dbConnection.GetAllAsync<Contato>();
             return [.. contatos];
         }
 
-        public Contato? RetornarContatoPeloId(int id)
+        public async Task<Contato?> RetornarContatoPeloId(int id)
         {
-            var contato = _dbConnection.Get<Contato>(id);
+            var contato = await _dbConnection.GetAsync<Contato>(id);
             return contato;
         }
     }
