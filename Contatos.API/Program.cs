@@ -1,5 +1,6 @@
 using Contatos.API.Interfaces;
 using Contatos.API.Repositories;
+using Contatos.API.Services;
 using Microsoft.Data.SqlClient;
 using System.Data;
 
@@ -12,6 +13,7 @@ var configuration = new ConfigurationBuilder()
 var stringConexao = configuration.GetValue<string>("ConnectionString");
 builder.Services.AddScoped<IDbConnection>((conexao) => new SqlConnection(stringConexao));
 builder.Services.AddScoped<IContatoRepository, ContatoRepository>();
+builder.Services.AddScoped<IContatoService, ContatoService>();
 
 
 builder.Services.AddControllers();

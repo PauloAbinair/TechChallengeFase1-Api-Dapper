@@ -3,7 +3,6 @@ using Contatos.API.Models;
 
 namespace Contatos.API.Services
 {
-   
     public class ContatoService(IContatoRepository contatoRepository) : IContatoService
     {
         private readonly IContatoRepository _contatoRepository = contatoRepository;
