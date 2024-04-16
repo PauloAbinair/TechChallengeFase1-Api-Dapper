@@ -1,28 +1,28 @@
-@Contatos_HostAddress = http://localhost:5280
-GET {{Contatos_HostAddress}}/contato/
+@Contatos_HostAddress = https://localhost:7225
+GET {{Contatos_HostAddress}}/contatos/
 Accept: application/json
 
 ###
 
-GET {{Contatos_HostAddress}}/contato/0
+GET {{Contatos_HostAddress}}/contatos/0
 Accept: application/json
 
 ###
 
-POST {{Contatos_HostAddress}}/contato
+POST {{Contatos_HostAddress}}/contatos
 Accept: application/json
 Content-Type: application/json
 
 {
-  "nome": "Paulo Abinair Prado Silva",
+  "nome": "Contato 1",
   "ddd": "31",
-  "telefone": "993583291",
-  "email": "paulo.abinair@email.com.br"
+  "telefone": "9935-83291",
+  "email":  "contato1@email.com.br"
 }
 
 ###
 
-PUT {{Contatos_HostAddress}}/contato/2
+PUT {{Contatos_HostAddress}}/contatos/2
 Accept: application/json
 Content-Type: application/json
 
@@ -34,18 +34,6 @@ Content-Type: application/json
 
 ###
 
-PUT {{Contatos_HostAddress}}/contato/2
-Accept: application/json
-Content-Type: application/json
-
-{
-  "nome": "Teste 1",
-  "telefone": "431434",
-  "email": "sdfasdfasdf"
-}
-
-###
-
-DELETE {{Contatos_HostAddress}}/contato/2
+DELETE {{Contatos_HostAddress}}/contatos/3
 
 ###
