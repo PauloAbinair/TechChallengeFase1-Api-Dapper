@@ -17,6 +17,7 @@ namespace Contatos.API.Models
         public required string DDD { get; set; }
 
         [StringLength(20, ErrorMessage = "O telefone deve ter no máximo 20 caracteres.")]
+        [Phone(ErrorMessage = "Número de telefone inválido.")]
         public required string Telefone { get; set; }
 
         [EmailAddress(ErrorMessage = "O email não é válido.")]
