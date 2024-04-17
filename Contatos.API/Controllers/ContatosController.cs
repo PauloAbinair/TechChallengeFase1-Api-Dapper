@@ -2,7 +2,7 @@
 using Contatos.API.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Contatos.Controllers
+namespace Contatos.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
