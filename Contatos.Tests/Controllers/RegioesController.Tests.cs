@@ -9,14 +9,14 @@ namespace Contatos.API.Tests.Controllers
     [TestFixture]
     public class RegiaoControllerTests
     {
-        private RegiaoController _regiaoController;
+        private RegioesController _regiaoController;
         private Mock<IRegiaoService> _mockRegiaoService;
 
         [SetUp]
         public void Setup()
         {
             _mockRegiaoService = new Mock<IRegiaoService>();
-            _regiaoController = new RegiaoController(_mockRegiaoService.Object);
+            _regiaoController = new RegioesController(_mockRegiaoService.Object);
         }
 
         [Test]

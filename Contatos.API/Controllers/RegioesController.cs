@@ -5,7 +5,7 @@ namespace Contatos.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class RegiaoController(IRegiaoService regiaoService) : ControllerBase
+    public class RegioesController(IRegiaoService regiaoService) : ControllerBase
     {
         private readonly IRegiaoService _regiaoService = regiaoService;
 
