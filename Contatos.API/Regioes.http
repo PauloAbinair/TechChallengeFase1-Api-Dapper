@@ -1,0 +1,5 @@
+@Contatos_HostAddress = https://localhost:7225
+GET {{Contatos_HostAddress}}/regioes/
+Accept: application/json
+
+###
