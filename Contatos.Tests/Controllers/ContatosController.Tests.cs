@@ -1,13 +1,13 @@
+using Contatos.API.Controllers;
 using Contatos.API.Interfaces;
 using Contatos.API.Models;
-using Contatos.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 
 namespace Contatos.API.Tests.Controllers
 {
     [TestFixture]
-    public class ContatoControllerTests
+    public class ContatosControllerTests
     {
         private ContatosController _contatoController;
         private Mock<IContatoService> _mockContatoService;
