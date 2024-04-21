@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Contatos.API.Interfaces;
 
 namespace Contatos.API.Models
 {
     [Table("Contatos")]
-    public class Contato
+    public record ContatoDeSaida : IContato
     {
         [Key]
         public int Id { get; set; }
@@ -13,8 +14,8 @@ namespace Contatos.API.Models
         [StringLength(100, ErrorMessage = "O nome deve ter no máximo 100 caracteres.")]
         public required string Nome { get; set; }
 
-        [StringLength(2, ErrorMessage = "O DDD deve ter no máximo 2 caracteres.")]
-        public required string DDD { get; set; }
+        [StringLength(2, ErrorMessage = "O contato deve ser vinculado à uma região")]
+        public required Regiao Regiao { get; set; }
 
         [StringLength(20, ErrorMessage = "O telefone deve ter no máximo 20 caracteres.")]
         [Phone(ErrorMessage = "Número de telefone inválido.")]

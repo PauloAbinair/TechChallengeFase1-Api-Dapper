@@ -14,22 +14,23 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "nome": "Contato 1",
-  "ddd": "31",
-  "telefone": "9935-83291",
-  "email":  "contato1@email.com.br"
+  "nome": "Contato de Teste 2",
+  "telefone": "380992323",
+  "email":  "contato2@email.com.br",
+  "IdRegiao": 3
 }
 
 ###
 
-PUT {{Contatos_HostAddress}}/contatos/2
+PUT {{Contatos_HostAddress}}/contatos/3009
 Accept: application/json
 Content-Type: application/json
 
 {
-  "nome": "Teste 1",
-  "telefone": "431434",
-  "email": "sdfasdfasdf"
+  "nome": "Contato de Teste 2",
+  "telefone": "380992323",
+  "email":  "contato2@email.com.br",
+  "IdRegiao": 39
 }
 
 ###

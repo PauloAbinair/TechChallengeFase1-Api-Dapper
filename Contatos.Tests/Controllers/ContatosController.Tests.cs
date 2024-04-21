@@ -23,12 +23,29 @@ namespace Contatos.API.Tests.Controllers
         public async Task Deve_Retornar_Ok_Para_Get_Contatos()
         {
             // Arrange
-            var contatos = new List<Contato>
+            var contatos = new List<ContatoDeSaida>
             {
-                new() { Id = 1, Nome = "João", DDD = "31", Email = "joao@test.com", Telefone = "993822529" },
-                new() { Id = 2, Nome = "Maria", DDD = "11", Email = "maria@test.com", Telefone = "993822529" }
+                new() {
+                    Id = 1, Nome = "João",Email = "joao@test.com", Telefone = "993822529",
+                    Regiao = new()
+                    {
+                        Id = 1,
+                        DDD = "32",
+                        UF = "MG"
+                    }
+                },
+                new() {
+                    Id = 2, Nome = "Maria", Email = "maria@test.com", Telefone = "993822529" ,
+                    Regiao = new Regiao(){
+                        Id = 2,
+                        DDD = "11",
+                        UF = "SP"
+                    }
+                }
             };
-            _mockContatoService.Setup(x => x.RetornarListaDeContatos()).Returns(Task.FromResult<IEnumerable<Contato>>(contatos));
+            _mockContatoService
+                .Setup(x => x.RetornarListaDeContatos())
+                .Returns(Task.FromResult<IEnumerable<ContatoDeSaida>>(contatos));
 
             // Act
             var result = await _contatoController.Get();

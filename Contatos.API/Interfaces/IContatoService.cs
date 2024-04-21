@@ -4,14 +4,14 @@ namespace Contatos.API.Interfaces
 {
     public interface IContatoService
     {
-        Task<IEnumerable<Contato>> RetornarListaDeContatos();
+        Task<IEnumerable<ContatoDeSaida>> RetornarListaDeContatos();
 
-        Task<Contato?> RetornarContatoPeloId(int id);
+        Task<ContatoDeSaida?> RetornarContatoPeloId(int id);
 
-        Task<Contato> InserirNovoContato(Contato contato);
+        Task<IContato> InserirNovoContato(IContato contato);
 
         Task<bool> ExcluirContao(int id);
 
-        Task<bool> AlterarContato(Contato contato);
+        Task<bool> AlterarContato(IContato contato);
     }
 }
