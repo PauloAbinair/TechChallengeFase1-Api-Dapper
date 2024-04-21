@@ -10,6 +10,10 @@ namespace Contatos.API.Controllers
     {
         private readonly IContatoService _contatoService = contatoService;
 
+        /// <summary>
+        /// Retorna a lista de todos contratos cadastrados
+        /// </summary>
+        /// <returns name="ContatoSaida"></returns>
         [HttpGet]
         public async Task<IActionResult> Get()
         {
@@ -25,14 +29,14 @@ namespace Contatos.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Contato contato)
+        public async Task<IActionResult> Post([FromBody] ContatoDeEntrada contato)
         {
             var novoContato = await _contatoService.InserirNovoContato(contato);
             return Created(string.Empty, novoContato);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] Contato contato)
+        public async Task<IActionResult> Put(int id, [FromBody] ContatoDeEntrada contato)
         {
             contato.Id = id;
             var atualizado = await _contatoService.AlterarContato(contato);
