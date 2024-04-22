@@ -4,7 +4,7 @@ namespace Contatos.API.Interfaces
 {
     public interface IContatoService
     {
-        Task<IEnumerable<ContatoDeSaida>> RetornarListaDeContatos();
+        Task<IEnumerable<ContatoDeSaida>> RetornarListaDeContatos(string? ddd = null);
 
         Task<ContatoDeSaida?> RetornarContatoPeloId(int id);
 
