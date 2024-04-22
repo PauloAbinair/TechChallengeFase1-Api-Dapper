@@ -29,7 +29,7 @@ namespace Contatos.API.Repositories
             return contato;
         }
 
-        public async Task<IEnumerable<ContatoDeSaida>> RetornarListaDeContatos()
+        public async Task<IEnumerable<ContatoDeSaida>> RetornarListaDeContatos(string? ddd = null)
         {
             var sql = @"SELECT CONTATOS.ID,
                                CONTATOS.NOME,
@@ -40,8 +40,16 @@ namespace Contatos.API.Repositories
                                REGIOES.DDD,
                                REGIOES.UF
                           FROM CONTATOS
-                    INNER JOIN REGIOES ON CONTATOS.IDREGIAO = REGIOES.ID";
+                    INNER JOIN REGIOES ON CONTATOS.IDREGIAO = REGIOES.ID
+                         WHERE 1 = 1";
             ;
+
+            object? parameters = null;
+
+            if (ddd != null) {
+                sql += "AND REGIOES.DDD = @DDD";
+                parameters = new { DDD = ddd };
+            }
 
             var contatos = await _dbConnection.QueryAsync<ContatoDeSaida, Regiao, ContatoDeSaida>(
                 sql,
@@ -50,6 +58,7 @@ namespace Contatos.API.Repositories
                     contato.Regiao = regiao;
                     return contato;
                 },
+                parameters,
                 splitOn: "IDREGIAO"
             );
 

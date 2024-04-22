@@ -11,13 +11,14 @@ namespace Contatos.API.Controllers
         private readonly IContatoService _contatoService = contatoService;
 
         /// <summary>
-        /// Retorna a lista de todos contratos cadastrados
+        /// Retorna a lista de todos contatos cadastrados
         /// </summary>
+        /// <param name="ddd">(Opcional) Informar para retornar contatos filtrados por DDD</param>
         /// <returns name="ContatoSaida"></returns>
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery] string? ddd = null)
         {
-            var contatos = await _contatoService.RetornarListaDeContatos();
+            var contatos = await _contatoService.RetornarListaDeContatos(ddd);
             return Ok(contatos);
         }
 
