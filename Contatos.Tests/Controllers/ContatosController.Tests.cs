@@ -12,34 +12,33 @@ namespace Contatos.API.Tests.Controllers
         private ContatosController _contatoController;
         private Mock<IContatoService> _mockContatoService;
 
-        private List<ContatoDeSaida> _mockListaDeContatos = [
-                new() {
-                    Id = 1, Nome = "João",Email = "joao@test.com", Telefone = "995678721",
-                    Regiao = new()
-                    {
-                        Id = 1,
-                        DDD = "32",
-                        UF = "MG"
-                    }
-                },
-                new() {
-                    Id = 2, Nome = "Maria", Email = "maria@test.com", Telefone = "99764326" ,
-                    Regiao = new Regiao(){
-                        Id = 2,
-                        DDD = "11",
-                        UF = "SP"
-                    }
-                },
-                new() {
-                    Id = 2, Nome = "José", Email = "jose@test.com", Telefone = "309882983" ,
-                    Regiao = new Regiao(){
-                        Id = 2,
-                        DDD = "11",
-                        UF = "SP"
-                    }
+        private readonly List<ContatoDeSaida> _mockListaDeContatos = [
+            new() {
+                Id = 1, Nome = "João",Email = "joao@test.com", Telefone = "995678721",
+                Regiao = new()
+                {
+                    Id = 1,
+                    DDD = "32",
+                    UF = "MG"
                 }
+            },
+            new() {
+                Id = 2, Nome = "Maria", Email = "maria@test.com", Telefone = "99764326" ,
+                Regiao = new Regiao(){
+                    Id = 2,
+                    DDD = "11",
+                    UF = "SP"
+                }
+            },
+            new() {
+                Id = 2, Nome = "José", Email = "jose@test.com", Telefone = "309882983" ,
+                Regiao = new Regiao(){
+                    Id = 2,
+                    DDD = "11",
+                    UF = "SP"
+                }
+            }
         ];
-
 
         [SetUp]
         public void Setup()
