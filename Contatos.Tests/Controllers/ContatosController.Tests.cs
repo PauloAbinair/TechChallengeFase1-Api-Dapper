@@ -1,8 +1,10 @@
 using Contatos.API.Controllers;
+using Contatos.API.Dto;
 using Contatos.API.Interfaces;
 using Contatos.API.Models;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using NUnit.Framework;
 
 namespace Contatos.API.Tests.Controllers
 {
@@ -12,9 +14,9 @@ namespace Contatos.API.Tests.Controllers
         private ContatosController _contatoController;
         private Mock<IContatoService> _mockContatoService;
 
-        private readonly List<ContatoDeSaida> _mockListaDeContatos = [
+        private readonly List<ContatoDto> _mockListaDeContatos = [
             new() {
-                Id = 1, Nome = "João",Email = "joao@test.com", Telefone = "995678721",
+                Id = 1, Nome = "João",Email = "joao@test.com", Telefone = "995678721", IdRegiao = 1,
                 Regiao = new()
                 {
                     Id = 1,
@@ -23,7 +25,7 @@ namespace Contatos.API.Tests.Controllers
                 }
             },
             new() {
-                Id = 2, Nome = "Maria", Email = "maria@test.com", Telefone = "99764326" ,
+                Id = 2, Nome = "Maria", Email = "maria@test.com", Telefone = "99764326", IdRegiao = 2,
                 Regiao = new Regiao(){
                     Id = 2,
                     DDD = "11",
@@ -31,7 +33,7 @@ namespace Contatos.API.Tests.Controllers
                 }
             },
             new() {
-                Id = 2, Nome = "José", Email = "jose@test.com", Telefone = "309882983" ,
+                Id = 2, Nome = "José", Email = "jose@test.com", Telefone = "309882983", IdRegiao = 3,
                 Regiao = new Regiao(){
                     Id = 2,
                     DDD = "11",
@@ -51,12 +53,15 @@ namespace Contatos.API.Tests.Controllers
         public async Task Deve_Retornar_Ok_Para_Get_Contatos()
         {
             // Arrange
+            var contatos = _mockListaDeContatos
+                .Select(contatoDto => (Contato)contatoDto);
+
             _mockContatoService
                 .Setup(x => x.RetornarListaDeContatos(null))
-                .Returns(Task.FromResult<IEnumerable<ContatoDeSaida>>(_mockListaDeContatos));
+                .Returns(Task.FromResult<IEnumerable<Contato>>(contatos));
 
             // Act
-            var result = await _contatoController.Get();
+            var result = await _contatoController.GetAll(null);
 
             // Assert
             Assert.That(result, Is.InstanceOf<OkObjectResult>());
@@ -68,19 +73,27 @@ namespace Contatos.API.Tests.Controllers
         public async Task Deve_Retornar_Contatos_Filtrados_Por_DDD()
         {
             // Arrange
+            // Arrange
+            var contatos = _mockListaDeContatos
+                .Select(contatoDto => (Contato)contatoDto);
+
             var ddd = "11";
-            var contatosFiltrados = _mockListaDeContatos.Where(contato => contato.Regiao.DDD == ddd);
+            var contatosFiltrados = contatos
+                .Where(contato => contato.Regiao?.DDD == ddd);
+
             _mockContatoService
                 .Setup(x => x.RetornarListaDeContatos(ddd))
                 .Returns(Task.FromResult(contatosFiltrados));
 
             // Act
-            var result = await _contatoController.Get(ddd);
+            var result = await _contatoController.GetAll(ddd);
 
             // Assert
             Assert.That(result, Is.InstanceOf<OkObjectResult>());
             var okResult = (OkObjectResult)result;
-            Assert.That(okResult.Value, Is.EqualTo(contatosFiltrados));
+            var contatosFiltradosDto = contatosFiltrados
+                .Select(contato => (ContatoDto)contato);
+            Assert.That(okResult.Value, Is.EqualTo(contatosFiltradosDto));
         }
     }
 }

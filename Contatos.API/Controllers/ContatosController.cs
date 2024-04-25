@@ -1,4 +1,5 @@
-﻿using Contatos.API.Interfaces;
+﻿using Contatos.API.Dto;
+using Contatos.API.Interfaces;
 using Contatos.API.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,30 +15,32 @@ namespace Contatos.API.Controllers
         /// Retorna a lista de todos contatos cadastrados
         /// </summary>
         /// <param name="ddd">(Opcional) Informar para retornar contatos filtrados por DDD</param>
-        /// <returns name="ContatoSaida"></returns>
+        /// <returns name="ContatoDto"></returns>
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery] string? ddd = null)
+        public async Task<IActionResult> GetAll([FromQuery] string? ddd)
         {
             var contatos = await _contatoService.RetornarListaDeContatos(ddd);
-            return Ok(contatos);
+            var contatosDto = contatos.Select(contato => (ContatoDto)contato);
+            return Ok(contatosDto);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
+        public async Task<IActionResult> GetById(int id)
         {
             var contato = await _contatoService.RetornarContatoPeloId(id);
-            return contato is not null ? Ok(contato) : NotFound();
+            return contato is not null ? Ok((ContatoDto)contato) : NotFound();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] ContatoDeEntrada contato)
+        public async Task<IActionResult> Post([FromBody] ContatoDto contatoDto)
         {
+            var contato = (Contato)contatoDto;
             var novoContato = await _contatoService.InserirNovoContato(contato);
-            return Created(string.Empty, novoContato);
+            return Created(string.Empty, novoContato);     
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] ContatoDeEntrada contato)
+        public async Task<IActionResult> Put(int id, [FromBody] Contato contato)
         {
             contato.Id = id;
             var atualizado = await _contatoService.AlterarContato(contato);

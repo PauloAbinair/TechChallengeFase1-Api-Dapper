@@ -7,12 +7,12 @@ namespace Contatos.API.Services
     {
         private readonly IContatoRepository _contatoRepository = contatoRepository;
 
-        public async Task<IContato> InserirNovoContato(IContato contato)
+        public async Task<Contato> InserirNovoContato(Contato contato)
         {
             return await _contatoRepository.InserirNovoContato(contato);
         }
 
-        public async Task<bool> AlterarContato(IContato contato)
+        public async Task<bool> AlterarContato(Contato contato)
         {
             return await _contatoRepository.AlterarContato(contato);
         }
@@ -22,12 +22,12 @@ namespace Contatos.API.Services
             return await _contatoRepository.ExcluirContao(id);
         }
 
-        public async Task<IEnumerable<ContatoDeSaida>> RetornarListaDeContatos(string? ddd = null)
+        public async Task<IEnumerable<Contato>> RetornarListaDeContatos(string? ddd)
         {
             return await _contatoRepository.RetornarListaDeContatos(ddd);
         }
 
-        public async Task<ContatoDeSaida?> RetornarContatoPeloId(int id)
+        public async Task<Contato?> RetornarContatoPeloId(int id)
         {
             return await _contatoRepository.RetornarContatoPeloId(id);
         }
