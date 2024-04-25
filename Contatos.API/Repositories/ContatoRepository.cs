@@ -12,24 +12,24 @@ namespace Contatos.API.Repositories
     {
         private readonly IDbConnection _dbConnection = dbConnection;
 
-        public async Task<bool> AlterarContato(IContato contato)
+        public async Task<bool> AlterarContato(Contato contato)
         {
-            return await _dbConnection.UpdateAsync(contato as ContatoDeEntrada);
+            return await _dbConnection.UpdateAsync(contato as Contato);
         }
 
         public async Task<bool> ExcluirContao(int id)
         {
-            var contato = _dbConnection.Get<ContatoDeSaida>(id);
+            var contato = _dbConnection.Get<Contato>(id);
             return await _dbConnection.DeleteAsync(contato);
         }
 
-        public async Task<IContato> InserirNovoContato(IContato contato)
+        public async Task<Contato> InserirNovoContato(Contato contato)
         {
-            contato.Id = await _dbConnection.InsertAsync(contato as ContatoDeEntrada);
+            contato.Id = await _dbConnection.InsertAsync(contato as Contato);
             return contato;
         }
 
-        public async Task<IEnumerable<ContatoDeSaida>> RetornarListaDeContatos(string? ddd = null)
+        public async Task<IEnumerable<Contato>> RetornarListaDeContatos(string? ddd)
         {
             var sql = @"SELECT CONTATOS.ID,
                                CONTATOS.NOME,
@@ -51,10 +51,11 @@ namespace Contatos.API.Repositories
                 parameters = new { DDD = ddd };
             }
 
-            var contatos = await _dbConnection.QueryAsync<ContatoDeSaida, Regiao, ContatoDeSaida>(
+            var contatos = await _dbConnection.QueryAsync<Contato, Regiao, Contato>(
                 sql,
                 (contato, regiao) =>
                 {
+                    contato.IdRegiao = regiao.Id;
                     contato.Regiao = regiao;
                     return contato;
                 },
@@ -65,9 +66,9 @@ namespace Contatos.API.Repositories
             return contatos;
         }
 
-        public async Task<ContatoDeSaida?> RetornarContatoPeloId(int id)
+        public async Task<Contato?> RetornarContatoPeloId(int id)
         {
-            var contato = await _dbConnection.GetAsync<ContatoDeSaida>(id);
+            var contato = await _dbConnection.GetAsync<Contato>(id);
             return contato;
         }
     }
