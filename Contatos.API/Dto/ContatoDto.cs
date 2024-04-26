@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Contatos.API.Models;
+﻿using Contatos.API.Models;
 
 namespace Contatos.API.Dto
 {

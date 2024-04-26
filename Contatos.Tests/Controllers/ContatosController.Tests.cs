@@ -4,7 +4,6 @@ using Contatos.API.Interfaces;
 using Contatos.API.Models;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using NUnit.Framework;
 
 namespace Contatos.API.Tests.Controllers
 {
