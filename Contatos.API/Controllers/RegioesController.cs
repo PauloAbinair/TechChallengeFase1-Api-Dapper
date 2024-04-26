@@ -9,6 +9,10 @@ namespace Contatos.API.Controllers
     {
         private readonly IRegiaoService _regiaoService = regiaoService;
 
+        /// <summary>
+        /// Retorna a lista de DDD's
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> Get()
         {
