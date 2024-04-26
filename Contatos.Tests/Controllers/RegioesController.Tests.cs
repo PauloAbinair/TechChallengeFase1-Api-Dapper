@@ -25,8 +25,8 @@ namespace Contatos.API.Tests.Controllers
             // Arrange
             var regioes = new List<Regiao>
             {
-                new() { DDD = "31", UF = "MG"},
-                new() { DDD = "11", UF = "SP"},
+                new() { DDD = 31, UF = "MG"},
+                new() { DDD = 11, UF = "SP"},
             };
             _mockRegiaoService.Setup(x => x.RetornarListaDeRegioes()).Returns(Task.FromResult<IEnumerable<Regiao>>(regioes));
 

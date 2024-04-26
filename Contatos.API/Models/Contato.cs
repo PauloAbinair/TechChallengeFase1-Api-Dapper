@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using Contatos.API.Dto;
 using Dapper.Contrib.Extensions;
 
@@ -16,7 +15,7 @@ namespace Contatos.API.Models
         public required string Nome { get; set; }
 
         [Required(ErrorMessage = "O contato deve ser vinculado à uma região")]
-        public required int IdRegiao { get; set; }
+        public required int DDD { get; set; }
 
         [StringLength(20, ErrorMessage = "O telefone deve ter no máximo 20 caracteres.")]
         [Phone(ErrorMessage = "Número de telefone inválido.")]
@@ -35,7 +34,7 @@ namespace Contatos.API.Models
             {
                 Id = contato.Id,
                 Nome = contato.Nome,
-                IdRegiao = contato.IdRegiao,
+                DDD = contato.DDD,
                 Telefone = contato.Telefone,
                 Email = contato.Email,
                 Regiao = contato.Regiao

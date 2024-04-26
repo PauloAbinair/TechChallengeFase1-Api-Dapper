@@ -17,7 +17,7 @@ namespace Contatos.API.Controllers
         /// <param name="ddd">(Opcional) Informar para retornar contatos filtrados por DDD</param>
         /// <returns name="ContatoDto"></returns>
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] string? ddd)
+        public async Task<IActionResult> GetAll([FromQuery] int? ddd)
         {
             var contatos = await _contatoService.RetornarListaDeContatos(ddd);
             var contatosDto = contatos.Select(contato => (ContatoDto)contato);
