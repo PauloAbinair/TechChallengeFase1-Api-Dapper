@@ -1,5 +1,4 @@
-﻿using System.Data.Common;
-using System.Data;
+﻿using System.Data;
 using Contatos.API.Interfaces;
 using Contatos.API.Models;
 using Dapper.Contrib.Extensions;

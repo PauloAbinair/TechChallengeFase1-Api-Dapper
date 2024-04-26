@@ -1,9 +1,7 @@
-﻿using System.Data.Common;
-using System.Data;
+﻿using System.Data;
 using Contatos.API.Interfaces;
 using Contatos.API.Models;
 using Dapper.Contrib.Extensions;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using Dapper;
 
 namespace Contatos.API.Repositories

@@ -24,6 +24,11 @@ namespace Contatos.API.Controllers
             return Ok(contatosDto);
         }
 
+        /// <summary>
+        /// Retorna um contato através do seu ID
+        /// </summary>
+        /// <param name="id">Código do contato</param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -31,6 +36,11 @@ namespace Contatos.API.Controllers
             return contato is not null ? Ok((ContatoDto)contato) : NotFound();
         }
 
+        /// <summary>
+        /// Insere um novo contato
+        /// </summary>
+        /// <param name="contatoDto">Dados do contato</param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] ContatoDto contatoDto)
         {
@@ -39,6 +49,12 @@ namespace Contatos.API.Controllers
             return Created(string.Empty, novoContato);     
         }
 
+        /// <summary>
+        /// Altera os dados de um contato existente
+        /// </summary>
+        /// <param name="id">Código do contato</param>
+        /// <param name="contato">Novos dados do contato</param>
+        /// <returns></returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, [FromBody] Contato contato)
         {
@@ -47,6 +63,11 @@ namespace Contatos.API.Controllers
             return atualizado ? NoContent() : NotFound();
         }
 
+        /// <summary>
+        /// Exclui um contato existente
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
