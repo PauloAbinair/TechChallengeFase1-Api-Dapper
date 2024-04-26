@@ -4,7 +4,7 @@ namespace Contatos.API.Interfaces
 {
     public interface IContatoRepository
     {
-        Task<IEnumerable<Contato>> RetornarListaDeContatos(string? ddd = null);
+        Task<IEnumerable<Contato>> RetornarListaDeContatos(int? ddd = null);
 
         Task<Contato?> RetornarContatoPeloId(int id);
 

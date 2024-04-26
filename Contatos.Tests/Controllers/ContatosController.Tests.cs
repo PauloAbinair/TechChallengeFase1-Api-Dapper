@@ -16,27 +16,24 @@ namespace Contatos.API.Tests.Controllers
 
         private readonly List<ContatoDto> _mockListaDeContatos = [
             new() {
-                Id = 1, Nome = "João",Email = "joao@test.com", Telefone = "995678721", IdRegiao = 1,
+                Id = 1, Nome = "João",Email = "joao@test.com", Telefone = "995678721", DDD = 1,
                 Regiao = new()
                 {
-                    Id = 1,
-                    DDD = "32",
+                    DDD = 32,
                     UF = "MG"
                 }
             },
             new() {
-                Id = 2, Nome = "Maria", Email = "maria@test.com", Telefone = "99764326", IdRegiao = 2,
+                Id = 2, Nome = "Maria", Email = "maria@test.com", Telefone = "99764326", DDD = 2,
                 Regiao = new Regiao(){
-                    Id = 2,
-                    DDD = "11",
+                    DDD = 11,
                     UF = "SP"
                 }
             },
             new() {
-                Id = 2, Nome = "José", Email = "jose@test.com", Telefone = "309882983", IdRegiao = 3,
+                Id = 2, Nome = "José", Email = "jose@test.com", Telefone = "309882983", DDD = 3,
                 Regiao = new Regiao(){
-                    Id = 2,
-                    DDD = "11",
+                    DDD = 11,
                     UF = "SP"
                 }
             }
@@ -77,7 +74,7 @@ namespace Contatos.API.Tests.Controllers
             var contatos = _mockListaDeContatos
                 .Select(contatoDto => (Contato)contatoDto);
 
-            var ddd = "11";
+            var ddd = 11;
             var contatosFiltrados = contatos
                 .Where(contato => contato.Regiao?.DDD == ddd);
 

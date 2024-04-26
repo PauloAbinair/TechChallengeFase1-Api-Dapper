@@ -9,7 +9,7 @@ namespace Contatos.API.Dto
 
         public required string Nome { get; set; }
 
-        public required int IdRegiao { get; set; }
+        public required int DDD { get; set; }
 
         public required string Telefone { get; set; }
 
@@ -23,7 +23,7 @@ namespace Contatos.API.Dto
             {
                 Id = contatoDto.Id,
                 Nome = contatoDto.Nome,
-                IdRegiao = contatoDto.IdRegiao,
+                DDD = contatoDto.DDD,
                 Telefone = contatoDto.Telefone,
                 Email = contatoDto.Email,
                 Regiao = contatoDto.Regiao

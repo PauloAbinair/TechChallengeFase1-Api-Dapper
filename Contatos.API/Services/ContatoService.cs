@@ -22,7 +22,7 @@ namespace Contatos.API.Services
             return await _contatoRepository.ExcluirContao(id);
         }
 
-        public async Task<IEnumerable<Contato>> RetornarListaDeContatos(string? ddd)
+        public async Task<IEnumerable<Contato>> RetornarListaDeContatos(int? ddd)
         {
             return await _contatoRepository.RetornarListaDeContatos(ddd);
         }

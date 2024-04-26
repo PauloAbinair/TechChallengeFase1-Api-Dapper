@@ -29,25 +29,24 @@ namespace Contatos.API.Repositories
             return contato;
         }
 
-        public async Task<IEnumerable<Contato>> RetornarListaDeContatos(string? ddd)
+        public async Task<IEnumerable<Contato>> RetornarListaDeContatos(int? ddd)
         {
             var sql = @"SELECT CONTATOS.ID,
                                CONTATOS.NOME,
                                CONTATOS.EMAIL, 
                                CONTATOS.TELEFONE,
-                               CONTATOS.IDREGIAO,
-                               REGIOES.ID,
+                               CONTATOS.DDD,
                                REGIOES.DDD,
                                REGIOES.UF
                           FROM CONTATOS
-                    INNER JOIN REGIOES ON CONTATOS.IDREGIAO = REGIOES.ID
+                    INNER JOIN REGIOES ON CONTATOS.DDD = REGIOES.DDD
                          WHERE 1 = 1";
             ;
 
             object? parameters = null;
 
             if (ddd != null) {
-                sql += "AND REGIOES.DDD = @DDD";
+                sql += "AND CONTATOS.DDD = @DDD";
                 parameters = new { DDD = ddd };
             }
 
@@ -55,12 +54,12 @@ namespace Contatos.API.Repositories
                 sql,
                 (contato, regiao) =>
                 {
-                    contato.IdRegiao = regiao.Id;
+                    contato.DDD = regiao.DDD;
                     contato.Regiao = regiao;
                     return contato;
                 },
                 parameters,
-                splitOn: "IDREGIAO"
+                splitOn: "DDD"
             );
 
             return contatos;
