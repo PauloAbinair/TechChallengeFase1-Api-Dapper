@@ -15,7 +15,7 @@ namespace Contatos.API.Dto
 
         public required string Email { get; set; }
 
-        public Regiao? Regiao { get; set; }
+        public RegiaoDtoResponse? Regiao { get; set; }
 
         public static implicit operator Contato(ContatoDtoResponse contatoDtoResponse)
         {
@@ -26,8 +26,8 @@ namespace Contatos.API.Dto
                 DDD = contatoDtoResponse.DDD,
                 Telefone = contatoDtoResponse.Telefone,
                 Email = contatoDtoResponse.Email,
-                Regiao = contatoDtoResponse.Regiao
-             };
+                Regiao = contatoDtoResponse.Regiao,
+            };
 
             return contato;
         }

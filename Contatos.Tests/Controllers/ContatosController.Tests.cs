@@ -69,7 +69,6 @@ namespace Contatos.API.Tests.Controllers
         public async Task Deve_Retornar_Contatos_Filtrados_Por_DDD()
         {
             // Arrange
-            // Arrange
             var contatos = _mockListaDeContatos
                 .Select(contatoDto => (Contato)contatoDto);
 

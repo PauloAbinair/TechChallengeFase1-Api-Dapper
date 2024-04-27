@@ -1,4 +1,5 @@
 ﻿using Contatos.API.Controllers;
+using Contatos.API.Dto;
 using Contatos.API.Interfaces;
 using Contatos.API.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -23,20 +24,26 @@ namespace Contatos.API.Tests.Controllers
         public async Task Deve_Retornar_A_Lista_De_Regioes_De_DDD()
         {
             // Arrange
-            var regioes = new List<Regiao>
+            var mockListaDeRegioes = new List<RegiaoDtoResponse>
             {
                 new() { DDD = 31, UF = "MG"},
                 new() { DDD = 11, UF = "SP"},
             };
-            _mockRegiaoService.Setup(x => x.RetornarListaDeRegioes()).Returns(Task.FromResult<IEnumerable<Regiao>>(regioes));
+
+            var regioes = mockListaDeRegioes
+                .Select(regiaoDto => (Regiao)regiaoDto);
+
+            _mockRegiaoService
+                .Setup(x => x.RetornarListaDeRegioes())
+                .Returns(Task.FromResult<IEnumerable<Regiao>>(regioes));
 
             // Act
-            var result = await _regiaoController.Get();
+            var result = await _regiaoController.GetAll();
 
             // Assert
             Assert.That(result, Is.InstanceOf<OkObjectResult>());
             var okResult = (OkObjectResult)result;
-            Assert.That(okResult.Value, Is.EqualTo(regioes));
+            Assert.That(okResult.Value, Is.EqualTo(mockListaDeRegioes));
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using Contatos.API.Interfaces;
+﻿using Contatos.API.Dto;
+using Contatos.API.Interfaces;
+using Contatos.API.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Contatos.API.Controllers
@@ -10,14 +12,16 @@ namespace Contatos.API.Controllers
         private readonly IRegiaoService _regiaoService = regiaoService;
 
         /// <summary>
-        /// Retorna a lista de DDD's
+        /// Retorna a lista de regiões/DDD's
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IActionResult> Get()
+        [ProducesResponseType<IEnumerable<RegiaoDtoResponse>>(200)]
+        public async Task<IActionResult> GetAll()
         {
             var regioes = await _regiaoService.RetornarListaDeRegioes();
-            return Ok(regioes);
+            var regioesDto = regioes.Select(regiao => (RegiaoDtoResponse)regiao);
+            return Ok(regioesDto);
         }
     }
 }
