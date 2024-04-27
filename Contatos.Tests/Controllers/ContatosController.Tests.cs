@@ -13,7 +13,7 @@ namespace Contatos.API.Tests.Controllers
         private ContatosController _contatoController;
         private Mock<IContatoService> _mockContatoService;
 
-        private readonly List<ContatoDto> _mockListaDeContatos = [
+        private readonly List<ContatoDtoResponse> _mockListaDeContatos = [
             new() {
                 Id = 1, Nome = "João",Email = "joao@test.com", Telefone = "995678721", DDD = 1,
                 Regiao = new()
@@ -88,7 +88,7 @@ namespace Contatos.API.Tests.Controllers
             Assert.That(result, Is.InstanceOf<OkObjectResult>());
             var okResult = (OkObjectResult)result;
             var contatosFiltradosDto = contatosFiltrados
-                .Select(contato => (ContatoDto)contato);
+                .Select(contato => (ContatoDtoResponse)contato);
             Assert.That(okResult.Value, Is.EqualTo(contatosFiltradosDto));
         }
     }
