@@ -1,7 +1,10 @@
-﻿using Contatos.API.Dto;
+﻿using System.Net.Mime;
+using Contatos.API.Dto;
 using Contatos.API.Interfaces;
 using Contatos.API.Models;
+using Contatos.API.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Formatters;
 
 namespace Contatos.API.Controllers
 {
@@ -17,10 +20,11 @@ namespace Contatos.API.Controllers
         /// <param name="ddd">(Opcional) Informar para retornar contatos filtrados por DDD</param>
         /// <returns name="ContatoDto"></returns>
         [HttpGet]
+        [ProducesResponseType<IEnumerable<ContatoDtoResponse>>(200)]
         public async Task<IActionResult> GetAll([FromQuery] int? ddd)
         {
             var contatos = await _contatoService.RetornarListaDeContatos(ddd);
-            var contatosDto = contatos.Select(contato => (ContatoDto)contato);
+            var contatosDto = contatos.Select(contato => (ContatoDtoResponse)contato);
             return Ok(contatosDto);
         }
 
@@ -30,10 +34,11 @@ namespace Contatos.API.Controllers
         /// <param name="id">Código do contato</param>
         /// <returns></returns>
         [HttpGet("{id}")]
+        [ProducesResponseType<ContatoDtoResponse>(200)]
         public async Task<IActionResult> GetById(int id)
         {
             var contato = await _contatoService.RetornarContatoPeloId(id);
-            return contato is not null ? Ok((ContatoDto)contato) : NotFound();
+            return contato is not null ? Ok((ContatoDtoResponse)contato) : NotFound();
         }
 
         /// <summary>
@@ -42,7 +47,8 @@ namespace Contatos.API.Controllers
         /// <param name="contatoDto">Dados do contato</param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] ContatoDto contatoDto)
+        [ProducesResponseType<ContatoDtoResponse>(200)]
+        public async Task<IActionResult> Post([FromBody] ContatoDtoRequest contatoDto)
         {
             var contato = (Contato)contatoDto;
             var novoContato = await _contatoService.InserirNovoContato(contato);
@@ -53,11 +59,14 @@ namespace Contatos.API.Controllers
         /// Altera os dados de um contato existente
         /// </summary>
         /// <param name="id">Código do contato</param>
-        /// <param name="contato">Novos dados do contato</param>
+        /// <param name="contatoDtoRequest">Dados do contato para alteração</param>
         /// <returns></returns>
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] Contato contato)
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> Put(int id, [FromBody] ContatoDtoRequest contatoDtoRequest)
         {
+            var contato = (Contato)contatoDtoRequest;
             contato.Id = id;
             var atualizado = await _contatoService.AlterarContato(contato);
             return atualizado ? NoContent() : NotFound();
@@ -66,11 +75,20 @@ namespace Contatos.API.Controllers
         /// <summary>
         /// Exclui um contato existente
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">Id do contato para exclusão</param>
         /// <returns></returns>
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Delete(int id)
         {
+            var contato = await _contatoService.RetornarContatoPeloId(id);            
+
+            if (contato is null)
+            {
+                return NotFound();
+            }
+
             await _contatoService.ExcluirContao(id);
             return NoContent();
         }

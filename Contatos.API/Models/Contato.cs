@@ -26,11 +26,11 @@ namespace Contatos.API.Models
         public required string Email { get; set; }
        
         [Write(false)]
-        public Regiao? Regiao { get; set; }
+        public RegiaoDtoResponse? Regiao { get; set; }
 
-        public static implicit operator ContatoDto (Contato contato)
+        public static implicit operator ContatoDtoResponse(Contato contato)
         {
-            var contatoDto = new ContatoDto()
+            var contatoDto = new ContatoDtoResponse()
             {
                 Id = contato.Id,
                 Nome = contato.Nome,
