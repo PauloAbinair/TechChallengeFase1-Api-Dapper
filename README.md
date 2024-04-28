@@ -1,5 +1,10 @@
-O Problema
-==========
+Este repositório contem a implementação de uma API em .Net Core 8 e Dapper para atender minimamente os requisitos do Tech Challenge. Além do Dapper em si é utilizada também a biblioteca Dapper.Contrib. 
+
+# Tech Challenge
+
+Tech Challenge é o projeto da fase que engloba os conhecimentos obtidos em todas as disciplinas dela. Esta é uma atividade que, a princípio, deve ser desenvolvida em grupo. É importante atentar-se ao prazo de entrega, uma vez que essa atividade é obrigatória e vale 60% da nota de todas as disciplinas da fase.
+
+## O Problema
 
 O Tech Challenge desta fase será desenvolver um aplicativo utilizando a plataforma .NET 8 para cadastro de contatos regionais, considerando a persistência de dados e a qualidade do software.
 
