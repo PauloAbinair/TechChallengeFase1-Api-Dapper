@@ -1,4 +1,4 @@
-Este repositório contem a implementação de uma API em .Net Core 8 e Dapper para atender minimamente os requisitos do Tech Challenge. Além do Dapper em si é utilizada também a biblioteca Dapper.Contrib. 
+Este repositório contem a implementação de uma API em .Net Core 8 e Dapper para atender minimamente os requisitos do Tech Challenge. Além do Dapper em si é utilizada também a biblioteca Dapper.Contrib.  O arquivo "Contatos.dacpac" é a definição do banco de dados que pode ser importada em qualquer SQL  Server.
 
 # Tech Challenge
 
