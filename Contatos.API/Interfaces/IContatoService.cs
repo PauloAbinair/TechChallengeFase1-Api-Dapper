@@ -10,7 +10,7 @@ namespace Contatos.API.Interfaces
 
         Task<Contato> InserirNovoContato(Contato contato);
 
-        Task<bool> ExcluirContao(int id);
+        Task<bool> ExcluirContato(int id);
 
         Task<bool> AlterarContato(Contato contato);
     }

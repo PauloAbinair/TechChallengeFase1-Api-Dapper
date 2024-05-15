@@ -17,7 +17,7 @@ namespace Contatos.API.Services
             return await _contatoRepository.AlterarContato(contato);
         }
 
-        public async Task<bool> ExcluirContao(int id)
+        public async Task<bool> ExcluirContato(int id)
         {
             return await _contatoRepository.ExcluirContao(id);
         }
