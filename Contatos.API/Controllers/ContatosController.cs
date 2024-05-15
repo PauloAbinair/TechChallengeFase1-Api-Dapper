@@ -89,7 +89,7 @@ namespace Contatos.API.Controllers
                 return NotFound();
             }
 
-            await _contatoService.ExcluirContao(id);
+            await _contatoService.ExcluirContato(id);
             return NoContent();
         }
     }
