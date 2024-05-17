@@ -18,6 +18,7 @@ builder.Services.AddScoped<IContatoRepository, ContatoRepository>();
 builder.Services.AddScoped<IContatoService, ContatoService>();
 builder.Services.AddScoped<IRegiaoRepository, RegiaoRepository>();
 builder.Services.AddScoped<IRegiaoService, RegiaoService>();
+builder.Services.AddMemoryCache();
 
 
 builder.Services.AddControllers();
