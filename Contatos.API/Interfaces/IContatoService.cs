@@ -4,7 +4,7 @@ namespace Contatos.API.Interfaces
 {
     public interface IContatoService
     {
-        Task<IEnumerable<Contato>> RetornarListaDeContatos(int? ddd);
+        Task<Tuple<IEnumerable<Contato>, bool>> RetornarListaDeContatos(int? ddd);
 
         Task<Contato?> RetornarContatoPeloId(int id);
 

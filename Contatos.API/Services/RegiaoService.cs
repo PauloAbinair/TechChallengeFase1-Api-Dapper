@@ -7,7 +7,7 @@ namespace Contatos.API.Services
     {
         private readonly IRegiaoRepository _regiaoServiceRepository = regiaoServiceRepository;
 
-        public async Task<IEnumerable<Regiao>> RetornarListaDeRegioes()
+        public async Task<Tuple<IEnumerable<Regiao>, bool>> RetornarListaDeRegioes()
         {
             return await _regiaoServiceRepository.RetornarListaDeRegioes();
         }

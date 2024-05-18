@@ -4,6 +4,6 @@ namespace Contatos.API.Interfaces
 {
     public interface IRegiaoRepository
     {
-        Task<IEnumerable<Regiao>> RetornarListaDeRegioes();
+        Task<Tuple<IEnumerable<Regiao>, bool>> RetornarListaDeRegioes();
     }
 }
