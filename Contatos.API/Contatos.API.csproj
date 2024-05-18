@@ -13,6 +13,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="NovaPasta1\**" />
+    <Content Remove="NovaPasta1\**" />
+    <EmbeddedResource Remove="NovaPasta1\**" />
+    <None Remove="NovaPasta1\**" />
+  </ItemGroup>
+ 
+
+  <ItemGroup>
     <Compile Remove="Controllers\WeatherForecastController.cs" />
     <Compile Remove="Models\ContatoDeSaida.cs" />
     <Compile Remove="WeatherForecast.cs" />
@@ -27,6 +35,10 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Logs\" />
   </ItemGroup>
 
 </Project>
