@@ -1,4 +1,5 @@
 ﻿using Contatos.API.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 
@@ -6,6 +7,7 @@ namespace Contatos.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class CacheController (ICacheService cacheService, ILoggerService logger) : ControllerBase
     {   
         private readonly ICacheService _cacheService = cacheService;
