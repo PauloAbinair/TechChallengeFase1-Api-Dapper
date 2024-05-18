@@ -42,7 +42,7 @@ namespace Contatos.API.Tests.Controllers
         public void Setup()
         {
             _mockContatoService = new Mock<IContatoService>();
-            _contatoController = new ContatosController(_mockContatoService.Object);
+            _contatoController = new ContatosController(_mockContatoService.Object, null);
         }
 
         [Test]
@@ -54,7 +54,7 @@ namespace Contatos.API.Tests.Controllers
 
             _mockContatoService
                 .Setup(x => x.RetornarListaDeContatos(null))
-                .Returns(Task.FromResult<IEnumerable<Contato>>(contatos));
+                .Returns(Task.FromResult<Tuple<IEnumerable<Contato>, bool>>(new Tuple<IEnumerable<Contato>, bool>(contatos, false)));
 
             // Act
             var result = await _contatoController.GetAll(null);
@@ -77,8 +77,8 @@ namespace Contatos.API.Tests.Controllers
                 .Where(contato => contato.Regiao?.DDD == ddd);
 
             _mockContatoService
-                .Setup(x => x.RetornarListaDeContatos(ddd))
-                .Returns(Task.FromResult(contatosFiltrados));
+                .Setup(x => x.RetornarListaDeContatos(ddd))                
+                .Returns(Task.FromResult<Tuple<IEnumerable<Contato>, bool>>(new Tuple<IEnumerable<Contato>, bool>(contatosFiltrados, false)));
 
             // Act
             var result = await _contatoController.GetAll(ddd);

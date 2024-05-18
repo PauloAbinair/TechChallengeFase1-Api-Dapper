@@ -20,6 +20,8 @@ public static class DependecyInjection
         services.AddSingleton<ICacheService, CacheService>();
         services.AddTransient<ILoggerService, LoggerService>();
         services.AddMemoryCache();
+        services.AddSingleton<IUsuarioRepository, UsuarioRepository>();
+        services.AddSingleton<ITokenService, TokenService>();
 
         return services;
     }
