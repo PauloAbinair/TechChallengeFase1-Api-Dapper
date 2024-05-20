@@ -1,16 +1,41 @@
 using Contatos.API.Interfaces;
 using Contatos.API.Repositories;
 using Contatos.API.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Data.SqlClient;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Data;
 using System.Reflection;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var configuration = new ConfigurationBuilder()
-    .AddJsonFile("appsettings.json")
-    .Build();
+            .AddJsonFile("appsettings.json")
+            .Build();
+
+builder.Services.AddInfrastructure(configuration);
+
+var key = Encoding.ASCII.GetBytes(configuration.GetValue<string>("SecretJWT"));
+
+builder.Services.AddAuthentication(x =>
+{
+    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(x =>
+{
+    x.RequireHttpsMetadata = false;
+    x.SaveToken = true;
+    x.TokenValidationParameters = new TokenValidationParameters()
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(key),
+        ValidateIssuer = false,
+        ValidateAudience = false
+    };
+});
 
 var stringConexao = configuration.GetValue<string>("ConnectionString");
 builder.Services.AddScoped<IDbConnection>((conexao) => new SqlConnection(stringConexao));
@@ -19,7 +44,6 @@ builder.Services.AddScoped<IContatoService, ContatoService>();
 builder.Services.AddScoped<IRegiaoRepository, RegiaoRepository>();
 builder.Services.AddScoped<IRegiaoService, RegiaoService>();
 builder.Services.AddMemoryCache();
-
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -31,6 +55,33 @@ builder.Services.AddSwaggerGen(c =>
     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
     c.IncludeXmlComments(xmlPath);
+
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Description =
+            "JWT Authorization Header - utilizado com Bearer Authentication.\r\n\r\n" +
+            "Digite 'Bearer' [espa√ßo] e ent√£o seu token no campo abaixo.\r\n\r\n" +
+            "Exemplo (informar sem as aspas): 'Bearer 12345abcdef'",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer",
+        BearerFormat = "JWT",
+    });
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
 });
 
 var app = builder.Build();
@@ -44,10 +95,10 @@ if (app.Environment.IsDevelopment())
 
 app.Use(async (context, next) =>
 {
-    // Definindo o tipo de conte˙do padr„o para application/json
+    // Definindo o tipo de conte√∫do padr√£o para application/json
     context.Response.ContentType = "application/json";
 
-    // Chamada para o prÛximo middleware na pipeline
+    // Chamada para o pr√≥ximo middleware na pipeline
     await next();
 });
 

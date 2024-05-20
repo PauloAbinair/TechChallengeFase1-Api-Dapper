@@ -17,7 +17,7 @@ namespace Contatos.API.Tests.Controllers
         public void Setup()
         {
             _mockRegiaoService = new Mock<IRegiaoService>();
-            _regiaoController = new RegioesController(_mockRegiaoService.Object);
+            _regiaoController = new RegioesController(_mockRegiaoService.Object, null);
         }
 
         [Test]
@@ -35,7 +35,7 @@ namespace Contatos.API.Tests.Controllers
 
             _mockRegiaoService
                 .Setup(x => x.RetornarListaDeRegioes())
-                .Returns(Task.FromResult<IEnumerable<Regiao>>(regioes));
+                .Returns(Task.FromResult<Tuple<IEnumerable<Regiao>, bool>>(new Tuple<IEnumerable<Regiao>, bool>(regioes, false)));
 
             // Act
             var result = await _regiaoController.GetAll();

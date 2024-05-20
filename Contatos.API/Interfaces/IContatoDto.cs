@@ -5,7 +5,6 @@ namespace Contatos.API.Interfaces
 {
     public interface IContatoDto
     {
-        public int Id { get; set; }
 
         public string Nome { get; set; }
 

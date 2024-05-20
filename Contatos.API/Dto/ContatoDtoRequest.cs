@@ -3,10 +3,8 @@ using Contatos.API.Models;
 
 namespace Contatos.API.Dto
 {
-    public record ContatoDtoRequest: IContatoDto
-    {
-        public int Id { get; set; }
-
+    public record ContatoDtoRequest
+    {   
         public required string Nome { get; set; }
 
         public required int DDD { get; set; }
@@ -18,8 +16,7 @@ namespace Contatos.API.Dto
         public static implicit operator Contato(ContatoDtoRequest contatoDtoRequest)
         {
             var contato = new Contato()
-            {
-                Id = contatoDtoRequest.Id,
+            {                
                 Nome = contatoDtoRequest.Nome,
                 DDD = contatoDtoRequest.DDD,
                 Telefone = contatoDtoRequest.Telefone,
