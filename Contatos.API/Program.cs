@@ -37,6 +37,13 @@ builder.Services.AddAuthentication(x =>
     };
 });
 
+var stringConexao = configuration.GetValue<string>("ConnectionString");
+builder.Services.AddScoped<IDbConnection>((conexao) => new SqlConnection(stringConexao));
+builder.Services.AddScoped<IContatoRepository, ContatoRepository>();
+builder.Services.AddScoped<IContatoService, ContatoService>();
+builder.Services.AddScoped<IRegiaoRepository, RegiaoRepository>();
+builder.Services.AddScoped<IRegiaoService, RegiaoService>();
+builder.Services.AddMemoryCache();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -53,7 +60,7 @@ builder.Services.AddSwaggerGen(c =>
     {
         Description =
             "JWT Authorization Header - utilizado com Bearer Authentication.\r\n\r\n" +
-            "Digite 'Bearer' [espaço] e então seu token no campo abaixo.\r\n\r\n" +
+            "Digite 'Bearer' [espaÃ§o] e entÃ£o seu token no campo abaixo.\r\n\r\n" +
             "Exemplo (informar sem as aspas): 'Bearer 12345abcdef'",
         Name = "Authorization",
         In = ParameterLocation.Header,
@@ -88,10 +95,10 @@ if (app.Environment.IsDevelopment())
 
 app.Use(async (context, next) =>
 {
-    // Definindo o tipo de conteúdo padrão para application/json
+    // Definindo o tipo de conteÃºdo padrÃ£o para application/json
     context.Response.ContentType = "application/json";
 
-    // Chamada para o próximo middleware na pipeline
+    // Chamada para o prÃ³ximo middleware na pipeline
     await next();
 });
 
