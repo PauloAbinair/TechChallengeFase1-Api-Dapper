@@ -1,31 +1,29 @@
 ﻿using System.Data;
 using Contatos.API.Interfaces;
 using Contatos.API.Models;
+using Contatos.API.Services;
 using Dapper.Contrib.Extensions;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace Contatos.API.Repositories
 {
-    public class RegiaoRepository(IDbConnection dbConnection, IMemoryCache cache) : IRegiaoRepository
+    public class RegiaoRepository(IDbConnection dbConnection, ICacheService cacheService) : IRegiaoRepository
     {
         private readonly IDbConnection _dbConnection = dbConnection;
-        private readonly IMemoryCache _cache = cache;
+        private readonly ICacheService _cacheService = cacheService;
 
-        public async Task<IEnumerable<Regiao>> RetornarListaDeRegioes()
+        public async Task<Tuple<IEnumerable<Regiao>, bool>> RetornarListaDeRegioes()
         {
-            if (!_cache.TryGetValue("regiao", out IEnumerable<Regiao> listaCacheada))
+            if (!_cacheService.GetDataFromMemoryCache<IEnumerable<Regiao>>("regiao", out IEnumerable<Regiao> listaCacheada))
             {
                 var regioes = await _dbConnection.GetAllAsync<Regiao>();
 
-                var cacheEntryOptions = new MemoryCacheEntryOptions()
-                    .SetSlidingExpiration(TimeSpan.FromMinutes(120));
+                _cacheService.CreateKeyMemoryCache("regiao", regioes);
 
-                _cache.Set("regiao", regioes, cacheEntryOptions);
-
-                return [.. regioes];
+                return new Tuple<IEnumerable<Regiao>, bool>(regioes, true);
             }
 
-            return listaCacheada;
+            return new Tuple<IEnumerable<Regiao>, bool>(listaCacheada ?? Enumerable.Empty<Regiao>(), false);
         }
     }
 }
