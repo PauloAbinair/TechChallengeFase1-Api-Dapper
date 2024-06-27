@@ -54,7 +54,7 @@ namespace Contatos.API.Tests.Controllers
 
             _mockContatoService
                 .Setup(x => x.RetornarListaDeContatos(null))
-                .Returns(Task.FromResult<Tuple<IEnumerable<Contato>, bool>>(new Tuple<IEnumerable<Contato>, bool>(contatos, false)));
+                .ReturnsAsync(new Tuple<IEnumerable<Contato>, bool>(contatos, false));
 
             // Act
             var result = await _contatoController.GetAll(null);
