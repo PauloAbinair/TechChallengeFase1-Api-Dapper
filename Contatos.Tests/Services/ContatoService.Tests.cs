@@ -80,6 +80,5 @@ namespace Contatos.API.Tests.Services
             Assert.IsNotNull(contatoRetornado);
             Assert.AreEqual(contato.Id, contatoRetornado.Id);
         }
-
     }
 }
