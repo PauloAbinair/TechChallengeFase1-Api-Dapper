@@ -37,14 +37,6 @@ builder.Services.AddAuthentication(x =>
     };
 });
 
-var stringConexao = configuration.GetValue<string>("ConnectionString");
-builder.Services.AddScoped<IDbConnection>((conexao) => new SqlConnection(stringConexao));
-builder.Services.AddScoped<IContatoRepository, ContatoRepository>();
-builder.Services.AddScoped<IContatoService, ContatoService>();
-builder.Services.AddScoped<IRegiaoRepository, RegiaoRepository>();
-builder.Services.AddScoped<IRegiaoService, RegiaoService>();
-builder.Services.AddMemoryCache();
-
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

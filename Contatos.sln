@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentos", "Documentos", 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contatos.API.Integration.Tests", "Contatos.Integration.Tests\Contatos.API.Integration.Tests.csproj", "{6007D928-5B98-4E95-BA80-43F7465D767B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contatos.API.IntegrationTests", "Contatos.Integration.Tests\Contatos.API.IntegrationTests.csproj", "{6007D928-5B98-4E95-BA80-43F7465D767B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{90FA17B3-2CA5-4D52-AFFA-3ACB383336FB}"
 	ProjectSection(SolutionItems) = preProject

@@ -1,11 +1,8 @@
 ﻿using System.Net;
 using System.Net.Http.Headers;
 using System.Text;
-using Azure;
-using Contatos.API.Dto;
 using Contatos.API.Models;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.VisualStudio.TestPlatform.TestHost;
 using Newtonsoft.Json;
 
 namespace Contatos.API.IntegrationTests.Controllers
@@ -28,7 +25,7 @@ namespace Contatos.API.IntegrationTests.Controllers
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            var factory = new WebApplicationFactory<Program>();
+            var factory = new CustomWebApplicationFactory<Program>();
             _client = factory.CreateClient();
         }
 
@@ -70,7 +67,7 @@ namespace Contatos.API.IntegrationTests.Controllers
         }
 
         [Test]
-        public async Task Get_Contatos_ReturnsOk()
+        public async Task Deve_Retornar_Ok_Para_Get_Contatos()
         {
             //Arrange
             await SetupAuthorizationHeader();
@@ -83,7 +80,7 @@ namespace Contatos.API.IntegrationTests.Controllers
         }
 
         [Test]
-        public async Task Post_Contato_ReturnsCreated()
+        public async Task Deve_Retornar_Created_Para_Post_Contatos()
         {
             // Arrange
             var json = JsonConvert.SerializeObject(_contato1);
@@ -98,7 +95,7 @@ namespace Contatos.API.IntegrationTests.Controllers
         }
 
         [Test]
-        public async Task Put_Contato_ReturnsNoContent()
+        public async Task Deve_Retornar_NoContent_Para_Post_Contatos()
         {
             // Arrange
             var json = JsonConvert.SerializeObject(_contato2);
