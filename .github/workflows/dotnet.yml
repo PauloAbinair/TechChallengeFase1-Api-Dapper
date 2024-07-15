@@ -16,7 +16,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 8.0.x
+        dotnet-version: 8.0.302
 
     - name: Restore dependencies
       run: dotnet restore
@@ -27,7 +27,7 @@ jobs:
       working-directory: ./Contatos.API/
 
     - name: Unit Test - Contatos.API.Tests
-      run: dotnet test ./Contatos.API.Tests.csproj --no-build --verbosity normal
+      run: dotnet test ./Contatos.API.Tests/Contatos.API.Tests.csproj --no-build --verbosity normal
       working-directory: ./Contatos.Tests/
 
     - name: Unit Test - Contatos.API.Unit.Tests
