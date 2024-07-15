@@ -26,8 +26,12 @@ jobs:
       run: dotnet build
       working-directory: ./Contatos.API/
 
-    - name: Unit Test
-      run: dotnet test --no-build --verbosity normal
+    - name: Unit Test - Contatos.API.Tests
+      run: dotnet test ./Contatos.API.Tests/Contatos.API.Tests.csproj --no-build --verbosity normal
+      working-directory: ./Contatos.Tests/
+
+    - name: Unit Test - Contatos.API.Unit.Tests
+      run: dotnet test ./Contatos.API.Unit.Tests/Contatos.API.Unit.Tests.csproj --no-build --verbosity normal
       working-directory: ./Contatos.Tests/
 
     - name: Integration Test
