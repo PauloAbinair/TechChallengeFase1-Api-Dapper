@@ -54,7 +54,7 @@ builder.Services.AddSwaggerGen(c =>
     {
         Description =
             "JWT Authorization Header - utilizado com Bearer Authentication.\r\n\r\n" +
-            "Digite 'Bearer' [espa�o] e ent�o seu token no campo abaixo.\r\n\r\n" +
+            "Digite 'Bearer' [espaço] e então seu token no campo abaixo.\r\n\r\n" +
             "Exemplo (informar sem as aspas): 'Bearer 12345abcdef'",
         Name = "Authorization",
         In = ParameterLocation.Header,
